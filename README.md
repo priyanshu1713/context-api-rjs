@@ -1,12 +1,35 @@
-# React + Vite
+# React User Context Example
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project demonstrates how to use **React Context API** with a custom provider to share state across multiple components without prop drilling.
 
-Currently, two official plugins are available:
+## Files
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **UserContext.js**  
+  Creates the context object using `createContext()`.
 
-## Expanding the ESLint configuration
+- **UserContextProvider.jsx**  
+  A provider component that holds the `user` state and exposes it (along with `setUser`) to all children using `UserContext.Provider`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Example Components (Navbar, Profile, etc.)**  
+  Show how different components can access and update the same shared `user` data using `useContext(UserContext)`.
+
+## How it Works
+
+1. `UserContext.js` → defines the context (like an empty container).  
+2. `UserContextProvider.jsx` → manages the `user` state and provides it to all child components.  
+3. Child components (e.g., `Navbar`, `Profile`) → use `useContext(UserContext)` to read and update the `user`.  
+4. When `setUser` is called, React re-renders the provider and all subscribed components automatically update.
+
+## Example Flow
+
+- Initially, `user` is `null`.  
+- A component (like `Profile`) can call `setUser("Priyanshu")`.  
+- Now all components inside `UserContextProvider` instantly see `user = "Priyanshu"`.
+
+---
+
+### Run Locally
+
+```bash
+npm install
+npm start
